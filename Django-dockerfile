@@ -7,4 +7,5 @@ RUN git clone https://gitee.com/algernon-wan/automation.git
 FROM  ubuntu:18.04
 RUN mkdir -p /root/Django/
 COPY --from=gitcode . /root/
-RUN apt update && apt install software-properties-common
+RUN apt update
+DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends software-properties-common
