@@ -8,6 +8,7 @@ FROM registry.cn-hangzhou.aliyuncs.com/django-rep/python3.9:2.0
 RUN mkdir -p /root/Django/
 COPY --from=gitcode . /root/
 
-WORKDIR /Django/automation
+#WORKDIR /Django/automation
 
-RUN pip3.9 install poetry && poetry install && apt update -y
+RUN pip3.9 install poetry && cd /root/Django/automation && poetry install  
+RUN apt update -y
