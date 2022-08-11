@@ -1,16 +1,10 @@
 # 获取代码
 FROM bitnami/git:latest as gitcode
 WORKDIR /Django
-RUN git clone https://gitee.com/algernon-wan/automation.git /Django
+RUN git clone https://gitee.com/algernon-wan/automation.git
 
-# create real app image
-#FROM python:3.10.6-alpine3.16
-#FROM python:3.9.13-alpine3.16
+# 创建基础镜像
 FROM  ubuntu:18.04
 RUN mkdir -p /root/Django/
-COPY --from=gitcode /Django/ /root/Django
-# --from=0  就是第一个from构键阶段
-RUN apt-get update && apt install -y wget build-essential libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
-RUN wget https://www.python.org/ftp/python/3.9.0/Python-3.9.0b4.tgz && tar -zxvf Python-3.9.0b4.tgz
-WORKDIR /root/Django/
-#RUN apk add gcc g++ make cmake gfortran libffi-dev openssl-dev libtool && pip3 install poetry && poetry install
+COPY --from=gitcode . /root/
+RUN apt update && apt install software-properties-common
