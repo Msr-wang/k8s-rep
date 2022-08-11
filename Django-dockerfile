@@ -11,4 +11,4 @@ COPY --from=gitcode . /root/
 #WORKDIR /Django/automation
 
 RUN pip3.9 install poetry && cd /root/Django/automation && poetry install  
-RUN apt update -y
+RUN apt update -y && apt install -y vim wget net-tools
