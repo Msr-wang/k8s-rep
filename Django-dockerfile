@@ -1,0 +1,13 @@
+# 获取代码
+FROM bitnami/git:latest as gitcode
+WORKDIR /Django
+RUN git clone https://gitee.com/algernon-wan/automation.git /Django
+
+# create real app image
+FROM python:3.10.6-alpine3.16
+
+COPY --from=gitcode /Django/* /root/
+# --from=0  就是第一个from构键阶段
+RUN mkdir -p /root/Django/
+WORKDIR /root/Django/
+RUN pip3 install poetry
