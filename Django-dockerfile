@@ -9,4 +9,4 @@ RUN mkdir -p /root/Django/
 COPY --from=gitcode /Django/ /root/Django
 # --from=0  就是第一个from构键阶段
 WORKDIR /root/Django/
-RUN pip3 install poetry
+RUN pip3 install poetry && poetry install
