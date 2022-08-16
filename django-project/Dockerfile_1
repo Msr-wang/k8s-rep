@@ -1,1 +1,14 @@
-111
+# 获取代码
+FROM bitnami/git:latest as gitcode
+WORKDIR /Django
+RUN git clone https://gitee.com/algernon-wan/automation.git
+
+# 创建基础镜像
+FROM registry.cn-hangzhou.aliyuncs.com/django-rep/python3.9:2.0
+RUN mkdir -p /root/Django/
+COPY --from=gitcode . /root/
+
+WORKDIR /root/Django/automation
+
+RUN pip3.9 install poetry && cd /root/Django/automation && poetry install  && apt update -y && apt install -y vim && sed -i "s/local_automation/arsDB/g" automation/settings.py && poetry run python manage.py migrations && poetry run python manage.py migrat
+ENTRYPOINT ["/bin/bash","poetry","run","python","manage.py","runserver","0.0.0.0:8080"]
